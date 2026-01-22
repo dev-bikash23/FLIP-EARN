@@ -2,7 +2,10 @@ import { Inngest } from "inngest";
 import prisma from "../configs/prisma.js";
 
 // Create a client to send and receive events
-export const inngest = new Inngest({ id: "profile-marketplace" });
+export const inngest = new Inngest({ 
+  id: "profile-marketplace",
+  name: "FLIP Earn Server"
+});
 
 //Inngest Function to save user data to a database
 const syncUserCreation = inngest.createFunction(

@@ -8,12 +8,21 @@ import { inngest, functions } from "./inngest/index.js"
  const app = express();
 
  app.use(express.json());
- app.use(cors());
+ app.use(cors({
+   origin: ["http://localhost:5173", "https://flipear-client.vercel.app"],
+   credentials: true
+ }));
  
 app.use(clerkMiddleware())
 
  app.get("/", (req, res)=> res.send("Server is live!"));
- app.use("/api/inngest", serve({ client: inngest, functions }));
+ 
+ // Inngest sync endpoint with proper configuration
+ app.use("/api/inngest", serve({ 
+   client: inngest, 
+   functions,
+   servePath: "/api/inngest"
+ }));
 
  const PORT = process.env.PORT || 3001;
  app.listen(PORT, () => {
